@@ -2,9 +2,13 @@ from django.db import models
 
 
 class Video(models.Model):
+    class StatusChoices(models.IntegerChoices):
+        NOT_PUBLISHED = 0, "Not published video"
+        PUBLISHED = 1, "Published video"
+
     owner = models.ForeignKey("users.AppUser", on_delete=models.PROTECT, related_name="videos")
     name = models.CharField(max_length=255)
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(choices=StatusChoices, default=StatusChoices.NOT_PUBLISHED)
     total_likes = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -12,14 +16,14 @@ class Video(models.Model):
         return self.name
 
 class VideoFile(models.Model):
-    QUALITY_CHOICES = (
-        ("HD", "720p"),
-        ("FHD", "1080p"),
-        ("UHD", "4K"),
-    )
+    class QualityChoices(models.TextChoices):
+        HD = "HD", "720p"
+        FHD = "FHD", "1080p"
+        UHD = "UHD", "4K"
+
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name="files")
     file = models.FileField(upload_to="videos/")
-    quality = models.CharField(max_length=3, choices=QUALITY_CHOICES)
+    quality = models.CharField(max_length=3, choices=QualityChoices.choices, default=QualityChoices.HD)
 
     class Meta:
         unique_together = ("video", "quality")
