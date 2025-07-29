@@ -45,8 +45,8 @@ INSTALLED_APPS = [
 
     "rest_framework",
 
-    "app.users",
-    "app.videos",
+    "users",
+    "videos",
 ]
 
 MIDDLEWARE = [
