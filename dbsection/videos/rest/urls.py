@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from dbsection.videos.rest.views import VideoViewSet
+from videos.rest.views import VideoViewSet
 
 app_name = "videos"
 
