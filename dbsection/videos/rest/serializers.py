@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from dbsection.users.models import AppUser
-from dbsection.users.rest.serializers import AppUserPreviewSerializer
-from dbsection.videos.models import Video, VideoFile
+from users.models import AppUser
+from users.rest.serializers import AppUserPreviewSerializer
+from videos.models import Video, VideoFile
 
 
 class VideoRetrieveFileSerializer(serializers.ModelSerializer):
@@ -18,3 +18,12 @@ class VideoRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ("pk", "owner", "files", "name", "total_likes", "created_at")
+
+
+class StatisticsSerializer(serializers.ModelSerializer):
+    username = serializers.CharField()
+    likes_sum = serializers.IntegerField()
+
+    class Meta:
+        model = AppUser
+        fields = ("username", "likes_sum")

@@ -1,5 +1,5 @@
 """
-URL configuration for dbsection project.
+URL configuration for config project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -17,8 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    path("api/auth/", include("rest_framework.urls")),
+    path("api/token/", obtain_auth_token, name="api_token_auth"),
+
     path("", include("videos.rest.urls")),
 ]

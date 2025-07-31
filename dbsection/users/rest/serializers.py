@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from dbsection.users.models import AppUser
+from users.models import AppUser
 
 
 class AppUserPreviewSerializer(serializers.ModelSerializer):
